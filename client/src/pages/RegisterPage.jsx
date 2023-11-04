@@ -32,7 +32,7 @@ export const RegisterPage = () => {
     return (
         <form
             onSubmit={e => e.preventDefault()}
-            className='w-1/3 flex flex-col mx-auto mt-10 p-10 border rounded-lg border-gray'
+            className='w-80 lg:w-1/3 flex flex-col mx-auto mt-10 p-10 border rounded-lg border-gray'
         >
             <h2 className='font-black text-2xl text-center'>Join Peacemaking</h2>
             <p className='font-light text-sm my-5 tracking-[0.90px]'>Get more opportunities and privileges by joining the most useful community for residents from both banks of the Nistru River</p>
