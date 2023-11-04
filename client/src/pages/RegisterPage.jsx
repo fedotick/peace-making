@@ -74,7 +74,7 @@ export const RegisterPage = () => {
                 >
                     Register
                 </button>
-                <div className='text-sm lg:text flex gap-x-1 lg:gap-x-2 mt-3'>
+                <div className='text-xs lg:text flex gap-x-1 lg:gap-x-2 mt-3'>
                     <p>Already have an account?</p>
                     <Link to={'/login'} className='text-blue font-medium'>Login now</Link>
                 </div>
