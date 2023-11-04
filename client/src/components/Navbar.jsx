@@ -3,25 +3,16 @@ import { NavLink } from 'react-router-dom'
 import logoImg from '../img/icons/peacemaking-logo.png'
 import userPlusImg from '../img/icons/user-plus.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkIsAuth, logout, setToken, setUser } from '../redux/features/auth/authSlice'
+import { checkIsAuth, logout } from '../redux/features/auth/authSlice'
 
 export const Navbar = () => {
     const isAuth = useSelector(checkIsAuth)
+    const user = useSelector(state => state.auth.user)
     const dispatch = useDispatch()
-
-    const token = window.localStorage.getItem('token')
 
     const logoutHandler = () => {
         dispatch(logout())
         window.localStorage.removeItem('token')
-    }
-
-    if (token) {
-        const userData = JSON.parse(window.localStorage.getItem('userData'))
-        const userToken = window.localStorage.getItem('token')
-
-        dispatch(setUser(userData))
-        dispatch(setToken(userToken))
     }
 
     return (
@@ -31,12 +22,23 @@ export const Navbar = () => {
             </NavLink>
             <div className='flex items-center gap-x-4'>
                 {isAuth ? (
-                    <button 
-                        onClick={logoutHandler}
-                        className='bg-gray text-blue py-2 px-5 font-black text-xs rounded-[5px] hover:bg-[#C1C1C1] transition-all duration-300'
-                    >
-                        Logout
-                    </button>
+                    <>
+                        <NavLink to={'/'} className='py-2 px-5 bg-orange font-black text-xs rounded-[5px] hover:bg-orangeHover transition-all duration-300'>
+                            Main Page
+                        </NavLink>
+                        <NavLink to={'new'} className='py-2 px-5 bg-orange font-black text-xs rounded-[5px] hover:bg-orangeHover transition-all duration-300'>
+                            Add Post
+                        </NavLink>
+                        <button 
+                            onClick={logoutHandler}
+                            className='bg-gray text-blue py-2 px-5 font-black text-xs rounded-[5px] hover:bg-[#C1C1C1] transition-all duration-300'
+                        >
+                            Logout
+                        </button>
+                        <NavLink to='me' className='font-semibold text-orange text-lg hover:text-orangeHover transition-all duration-300'>
+                            {user && user.username}
+                        </NavLink>      
+                    </>
                 ) : (
                     <>
                         <NavLink to={'register'} className='flex items-center gap-x-3 py-2 px-5 bg-orange font-black text-xs rounded-[5px] hover:bg-orangeHover transition-all duration-300'>
