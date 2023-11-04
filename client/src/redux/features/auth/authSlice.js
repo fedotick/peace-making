@@ -29,6 +29,38 @@ export const registerUser = createAsyncThunk(
     }
 )
 
+export const loginUser = createAsyncThunk(
+    'auth/loginUser',
+    async ({ email, password }) => {
+        try {
+            const { data } = await axios.post('/auth/login', {
+                email, 
+                password
+            })
+
+            if (data.token) {
+                window.localStorage.setItem('token', data.token)
+            }
+
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+export const getMe = createAsyncThunk(
+    'auth/getMe',
+    async () => {
+        try {
+            const { data } = await axios.get('/auth/me')
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -65,6 +97,45 @@ export const authSlice = createSlice({
             }
             state.isLoading = false
         },
+        // Login user
+        [loginUser.pending]: (state) => {
+            state.isLoading = true
+            state.status = null
+        },
+        [loginUser.fulfilled]: (state, action) => {
+            if (action.payload) {
+                state.isLoading = false
+                state.status = action.payload.message
+                state.user = action.payload.user
+                state.token = action.payload.token
+            } else {
+                state.isLoading = false
+                state.status = 'Неверный логин или пароль'
+            }
+        },
+        [loginUser.rejected]: (state, action) => {
+            if (action.payload) {
+                state.status = action.payload.message
+            } else {
+                state.status = 'Неверный логин или пароль'
+            }
+            state.isLoading = false
+        },
+        // Authorization checking
+        [getMe.pending]: (state) => {
+            state.isLoading = true
+            state.status = null
+        },
+        [getMe.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.status = null
+            state.user = action.payload?.user
+            state.token = action.payload?.token
+        },
+        [getMe.rejected]: (state, action) => {
+            state.status = action.payload.message
+            state.isLoading = false
+        }
     }
 })
 
