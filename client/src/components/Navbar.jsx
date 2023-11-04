@@ -3,15 +3,25 @@ import { NavLink } from 'react-router-dom'
 import logoImg from '../img/icons/peacemaking-logo.png'
 import userPlusImg from '../img/icons/user-plus.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkIsAuth, logout } from '../redux/features/auth/authSlice'
+import { checkIsAuth, logout, setToken, setUser } from '../redux/features/auth/authSlice'
 
 export const Navbar = () => {
     const isAuth = useSelector(checkIsAuth)
     const dispatch = useDispatch()
 
+    const token = window.localStorage.getItem('token')
+
     const logoutHandler = () => {
         dispatch(logout())
         window.localStorage.removeItem('token')
+    }
+
+    if (token) {
+        const userData = JSON.parse(window.localStorage.getItem('userData'))
+        const userToken = window.localStorage.getItem('token')
+
+        dispatch(setUser(userData))
+        dispatch(setToken(userToken))
     }
 
     return (

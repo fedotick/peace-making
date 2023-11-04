@@ -70,7 +70,13 @@ export const authSlice = createSlice({
             state.token = null
             state.isLoading = false
             state.status = null
-        }
+        },
+        setUser: (state, action) => {
+            state.user = action.payload
+        },
+        setToken: (state, action) => {
+            state.token = action.payload
+        },
     },
     extraReducers: {
         // Register User
@@ -141,5 +147,5 @@ export const authSlice = createSlice({
 
 export const checkIsAuth = state => Boolean(state.auth.token)
 
-export const { logout } = authSlice.actions
+export const { logout, setUser, setToken } = authSlice.actions
 export default authSlice.reducer
