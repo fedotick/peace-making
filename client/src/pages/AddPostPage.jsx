@@ -73,18 +73,18 @@ export const AddPostPage = () => {
                         onChange={e => setImage(e.target.files[0])} 
                     />
                 </label>
-                <div className="flex">
-                    <button 
-                        className="flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4"
-                        onClick={submitHandler}
-                    >
-                        Добавить пост
-                    </button>
+                <div className="flex gap-x-5">
                     <button 
                         className="flex justify-center items-center bg-red-500 text-xs text-white rounded-sm py-2 px-4"
                         onClick={clearFormHandler}
                     >
                         Отменить
+                    </button>   
+                    <button 
+                        className="flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4"
+                        onClick={submitHandler}
+                    >
+                        Добавить пост
                     </button>
                 </div>
             </div>
