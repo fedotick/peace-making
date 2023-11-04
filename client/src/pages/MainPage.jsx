@@ -20,14 +20,10 @@ export const MainPage = () => {
     }
 
     return (
-        <div className='flex flex-col items-center mx-auto py-10'>
-            <div className='flex justify-between gap-8'>
-                <div className='flex flex-col gap-10'>
-                    {posts?.reverse(-1).map((post, index) => (
+        <div className='w-1/2 mx-auto py-10 flex flex-col gap-10'>
+            {posts?.map((post, index) => (
                         <PostItem post={post} key={index} />
-                    ))}
-                </div>
-            </div>
+            ))}
         </div>
     )
 }
